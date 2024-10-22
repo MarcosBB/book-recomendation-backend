@@ -26,6 +26,21 @@ public class LivroService {
         return lr.save(livro);
     }
 
+    public Livro atualizar(Long id, Livro livroAtualizado) {
+        Livro livroExistente = lr.findById(id)
+                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+
+        livroExistente.setTitulo(livroAtualizado.getTitulo());
+        livroExistente.setAutor(livroAtualizado.getAutor());
+        livroExistente.setEditora(livroAtualizado.getEditora());
+        livroExistente.setNumeroPaginas(livroAtualizado.getNumeroPaginas());
+        livroExistente.setGenero(livroAtualizado.getGenero());
+        livroExistente.setSinopse(livroAtualizado.getSinopse());
+        livroExistente.setAvaliacaoMedia(livroAtualizado.getAvaliacaoMedia());
+
+        return lr.save(livroExistente);
+    }
+
     public void deletar(Long id) {
         lr.deleteById(id);
     }

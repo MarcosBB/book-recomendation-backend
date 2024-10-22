@@ -26,6 +26,18 @@ public class UsuarioService {
         return ur.save(usuario);
     }
 
+    public Usuario atualizar(Long id, Usuario usuarioAtualizado) {
+        Usuario usuarioExistente = ur.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        usuarioExistente.setNome(usuarioAtualizado.getNome());
+        usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+        usuarioExistente.setSenha(usuarioAtualizado.getSenha());
+        usuarioExistente.setGeneroPreferido(usuarioAtualizado.getGeneroPreferido());
+
+        return ur.save(usuarioExistente);
+    }
+
     public void deletar(Long id) {
         ur.deleteById(id);
     }

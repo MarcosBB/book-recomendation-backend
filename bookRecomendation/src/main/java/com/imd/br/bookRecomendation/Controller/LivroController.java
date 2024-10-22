@@ -33,6 +33,11 @@ public class LivroController {
         return ls.salvar(livro);
     }
 
+    @PutMapping("/{id}")
+    public Livro atualizar(@PathVariable Long id, @RequestBody Livro livroAtualizado) {
+        return ls.atualizar(id, livroAtualizado);
+    }
+
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         ls.deletar(id);

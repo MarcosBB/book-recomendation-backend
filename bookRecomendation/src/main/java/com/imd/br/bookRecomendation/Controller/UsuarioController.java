@@ -31,6 +31,11 @@ public class UsuarioController {
         return us.salvar(usuario);
     }
 
+    @PutMapping("/{id}")
+    public Usuario atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+        return us.atualizar(id, usuarioAtualizado);
+    }
+
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         us.deletar(id);

@@ -19,6 +19,13 @@ public class Feedback {
     private int nota;
     private String comentario;
 
+    public Feedback(Usuario usuario, Livro livro, int nota, String comentario) {
+        this.usuario = usuario;
+        this.livro = livro;
+        this.nota = nota;
+        this.comentario = comentario;
+    }
+
     // Getters e Setters
 
     public Long getId() {
