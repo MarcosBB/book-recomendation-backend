@@ -1,5 +1,6 @@
 package com.imd.br.bookRecomendation.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,14 +11,19 @@ public class Feedback {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "livro_id")
+    @JsonIgnore
     private Livro livro;
 
     private int nota;
     private String comentario;
+
+    public Feedback() {
+    }
 
     public Feedback(Usuario usuario, Livro livro, int nota, String comentario) {
         this.usuario = usuario;
