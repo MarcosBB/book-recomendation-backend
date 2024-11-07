@@ -45,26 +45,13 @@ def get_all_books():
     return cursor.fetchall()
 
 def atualizar_marketplace_book(livro_id, price, marketplace, url, image_url, title):
+    query = """
+    UPDATE marketplace_book 
+    SET price = %s, marketplace = %s, url = %s, image_url = %s, title = %s
+    WHERE livro_id = %s
     """
-    Atualiza as informações de MarketplaceBook se livro_id existir.
-    """
-    # Verifica se existe um MarketplaceBook com o livro_id fornecido
-    check_query = "SELECT id FROM MarketplaceBook WHERE livro_id = %s"
-    cursor.execute(check_query, (livro_id,))
-    result = cursor.fetchone()
-
-    if result:
-        # Se existe, faz o update
-        update_query = """
-        UPDATE MarketplaceBook 
-        SET price = %s, marketplace = %s, url = %s, imageUrl = %s, title = %s
-        WHERE livro_id = %s
-        """
-        cursor.execute(update_query, (price, marketplace, url, image_url, title, livro_id))
-        db_connection.commit()
-        print(f"MarketplaceBook com livro_id {livro_id} atualizado com sucesso.")
-    else:
-        print(f"Nenhum MarketplaceBook encontrado com livro_id {livro_id}.")
+    cursor.execute(query, (price, marketplace, url, image_url, title, livro_id))
+    db_connection.commit()
 
 def criar_marketplace_book(livro_id, price, marketplace, url, image_url, title):
     query = """
