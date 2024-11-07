@@ -83,14 +83,14 @@ for livro in livros:
 
     resultado = buscar_preco_livros_mercado_livre(f"{titulo} - {autor} - {editora}")
     if marketplace_id:
-        # atualizar_marketplace_book(
-        #     livro_id=id,
-        #     price=resultado['price'],
-        #     marketplace=1,
-        #     url=resultado['url'],
-        #     image_url=resultado['image_url'],
-        #     title=resultado['title']
-        # )
+        atualizar_marketplace_book(
+            livro_id=id,
+            price=resultado['price'],
+            marketplace=1,
+            url=resultado['url'],
+            image_url=resultado['image_url'],
+            title=resultado['title']
+        )
         updated_books += 1
     else:
         criar_marketplace_book(
