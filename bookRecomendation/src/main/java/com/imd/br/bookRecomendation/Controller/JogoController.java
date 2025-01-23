@@ -58,7 +58,7 @@ public class JogoController {
 
     @PostMapping("/importar")
     public ResponseEntity<String> importarProdutos() {
-        importador.importarProdutos("books");
+        importador.importarProdutos();
         return ResponseEntity.ok("Importação de produtos iniciada!");
     }
 }

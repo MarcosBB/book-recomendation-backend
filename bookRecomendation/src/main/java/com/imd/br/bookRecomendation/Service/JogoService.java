@@ -53,20 +53,15 @@ public class JogoService implements ProdutoService<Jogo> {
     }
 
     public void salvarProdutos(String jsonResponse) throws Exception {
-        JsonNode root = objectMapper.readTree(jsonResponse);
-        JsonNode docs = root.path("docs");
+        JsonNode docs = objectMapper.readTree(jsonResponse);
 
         for (JsonNode doc : docs) {
-            Jogo produto = new Jogo();
-            produto.setTitulo(doc.path("title").asText());
-            produto.setAvaliacaoMedia(doc.path("ratings_average").asDouble());
-            produto.setGenero(
-                    doc.path("subject").isArray()
-                            ? doc.path("subject").get(0).asText()
-                            : "Desconhecido");
-            produto.setSinopse(doc.path("description").asText());
+            Jogo jogo = new Jogo();
+            jogo.setTitulo(doc.path("name").asText());
+            jogo.setAvaliacaoMedia(doc.path("rating").asDouble());
+            jogo.setSinopse(doc.path("summary").asText());
 
-            repository.save(produto);
+            repository.save(jogo);
         }
     }
 

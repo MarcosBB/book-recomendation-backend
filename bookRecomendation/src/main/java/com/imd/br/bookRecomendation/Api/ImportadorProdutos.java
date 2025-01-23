@@ -13,16 +13,15 @@ public class ImportadorProdutos {
     @Autowired
     private JogoService service;
 
-    public void importarProdutos(String query) {
-        int page = 1;
+    public void importarProdutos() {
+        int offset = 1;
         boolean hasMoreData = true;
 
         while (hasMoreData) {
-            String response = gameAPIService.buscarProdutos(query, page);
-
+            String response = gameAPIService.buscarProdutos(offset);
             try {
                 service.salvarProdutos(response);
-                page++;
+                offset = offset + 500;
             } catch (Exception e) {
                 e.printStackTrace();
                 hasMoreData = false; // Para em caso de erro

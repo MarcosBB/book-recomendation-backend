@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GameAPIService {
 
     private final WebClient webClient;
+    private final WebClient authWebClient;
 
     private final String CLIENT_ID = "o3omb8ond9dsa37rdw2z4m0mlyuimn";
     private final String CLIENT_SECRET = "3guav8zg4xwd71rpl96ewtgaom5nyo";
@@ -19,17 +20,21 @@ public class GameAPIService {
         this.webClient = webClientBuilder.baseUrl("https://api.igdb.com/v4")
                 .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(50 * 1024 * 1024))
                 .build();
+        this.authWebClient = webClientBuilder.baseUrl("https://id.twitch.tv")
+                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(50 * 1024 * 1024))
+                .build();
+        this.accessToken = authenticate();
     }
 
-    public String buscarProdutos(String query, int page) {
-        this.accessToken = authenticate();
+    public String buscarProdutos(int offset) {
+
         try {
             return webClient.get()
                     .uri(uriBuilder -> uriBuilder
                             .path("/games")
                             .queryParam("fields", "name,genres.name,platforms.name,rating,summary")
-                            .queryParam("search", query)
-                            .queryParam("page", page)
+                            .queryParam("offset", offset)
+                            .queryParam("limit", 500)
                             .build())
                     .header("Authorization", "Bearer " + accessToken)
                     .header("Client-ID", CLIENT_ID)
@@ -43,7 +48,7 @@ public class GameAPIService {
 
     private String authenticate() {
         try {
-            String response = webClient.post()
+            String response = authWebClient.post()
                     .uri(uriBuilder -> uriBuilder
                             .scheme("https")
                             .host("id.twitch.tv")
@@ -55,7 +60,7 @@ public class GameAPIService {
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-            System.out.println(response);
+
             // Parse access token from response JSON
             return extractAccessToken(response);
         } catch (WebClientResponseException e) {
