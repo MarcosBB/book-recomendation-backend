@@ -1,7 +1,7 @@
 package com.imd.br.bookRecomendation.Controller;
 
 import com.imd.br.bookRecomendation.Service.RecomendationService;
-import com.imd.br.bookRecomendation.Service.RecomendationServiceBook;
+import com.imd.br.bookRecomendation.Service.RecomendationServiceGame;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.ChatOptionsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,9 @@ public class RecomendationController {
     private final ChatClient chatClient;
 
     @Autowired
-    private RecomendationServiceBook rs;
+    private RecomendationServiceGame rs;
 
-    private String system = "Responda de forma curta, clara e objetiva, você é um recomendador de produtos";
+    private String system = "Responda de forma curta, clara e objetiva. Você é um recomendador de jogos de videogame.";
 
     public RecomendationController(ChatClient.Builder chatClientBuilder) {
         this.chatClient = chatClientBuilder

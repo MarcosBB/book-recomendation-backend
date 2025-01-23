@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RecomendationServiceBook extends RecomendationService {
+public class RecomendationServiceGame extends RecomendationService {
 
     @Autowired
     private UsuarioRepository ur;
@@ -28,7 +28,7 @@ public class RecomendationServiceBook extends RecomendationService {
             genero = "Drama";
         }
 
-        String message = "Recomende produtos do mesmo genero preferido do usuario: " + genero;
+        String message = "Recomende jogo do mesmo genero preferido do usuario: " + genero;
 
         return message;
     }
@@ -41,7 +41,7 @@ public class RecomendationServiceBook extends RecomendationService {
 
         Produto produto = historico.get(tam - 1).getProduto();
 
-        String message = "Recomende produtos semelhantes ao ultimo produto lido pelo usuario: " + produto.getTitulo();
+        String message = "Recomende jogo semelhantes ao ultimo produto lido pelo usuario: " + produto.getTitulo();
 
         return message;
     }
