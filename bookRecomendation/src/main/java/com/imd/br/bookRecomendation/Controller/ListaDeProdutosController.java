@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/lista-de-leitura")
+@RequestMapping("/lista-de-produtos")
 public class ListaDeProdutosController {
     @Autowired
     private ListaDeProdutosService listaDeProdutosService;

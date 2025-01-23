@@ -6,7 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Produto {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
