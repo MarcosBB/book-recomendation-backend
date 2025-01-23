@@ -1,7 +1,7 @@
 package com.imd.br.bookRecomendation.Api;
 
-import com.imd.br.bookRecomendation.Service.ProdutoService;
-import com.imd.br.bookRecomendation.Service.OpenLibraryService;
+import com.imd.br.bookRecomendation.Service.GameAPIService;
+import com.imd.br.bookRecomendation.Service.JogoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
 public class ImportadorProdutos {
 
     @Autowired
-    private OpenLibraryService openLibraryService;
+    private GameAPIService gameAPIService;
     @Autowired
-    private ProdutoService ls;
+    private JogoService service;
 
     public void importarProdutos(String query) {
         int page = 1;
         boolean hasMoreData = true;
 
         while (hasMoreData) {
-            String response = openLibraryService.buscarProdutos(query, page);
+            String response = gameAPIService.buscarProdutos(query, page);
 
             try {
-                ls.salvarProdutos(response);
+                service.salvarProdutos(response);
                 page++;
             } catch (Exception e) {
                 e.printStackTrace();
